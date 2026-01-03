@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen;
+    /* Clean, sophisticated off-white background */
+    background: #fafafa;
+  }
+}
+
+@layer components {
+
+  /* Elegant Card Design */
+  .card {
+    @apply bg-white rounded-2xl p-6 border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300;
+  }
+
+  /* Refined Primary Button - Single accent color */
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold text-white bg-gray-900 hover:bg-gray-800 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-semibold bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200;
+  }
+
+  /* Clean Input Field */
+  .input-field {
+    @apply w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 outline-none transition-all duration-200 placeholder:text-gray-400;
+  }
+
+  /* Refined Badges */
+  .badge {
+    @apply px-3 py-1 rounded-full text-xs font-medium transition-all duration-200;
+  }
+
+  .badge-success {
+    @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+  }
+
+  .badge-warning {
+    @apply bg-amber-50 text-amber-700 border border-amber-200;
+  }
+
+  .badge-error {
+    @apply bg-rose-50 text-rose-700 border border-rose-200;
+  }
+
+  .badge-info {
+    @apply bg-blue-50 text-blue-700 border border-blue-200;
+  }
+
+  /* Subtle animations only */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+}
