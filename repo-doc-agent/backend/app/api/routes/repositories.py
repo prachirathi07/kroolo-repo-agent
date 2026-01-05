@@ -175,7 +175,7 @@ async def list_repositories(
 ):
     """Get list of all repositories"""
     try:
-        repositories = db.query(Repository).offset(skip).limit(limit).all()
+        repositories = db.query(Repository).order_by(Repository.created_at.desc()).offset(skip).limit(limit).all()
         total = db.query(Repository).count()
         
         return RepositoryList(
