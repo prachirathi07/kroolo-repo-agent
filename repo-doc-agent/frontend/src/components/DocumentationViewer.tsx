@@ -12,7 +12,7 @@ import {
     Plug,
     MessageSquare,
 } from 'lucide-react';
-import { getDocumentation, getRepository, exportMarkdown, exportJSON } from '../services/api';
+import { getDocumentation, getRepository, exportMarkdown, exportJSON, exportDOCX } from '../services/api';
 import mermaid from 'mermaid';
 
 // Initialize Mermaid
@@ -65,6 +65,19 @@ export default function DocumentationViewer() {
             a.click();
         } catch (error) {
             alert('Failed to export JSON');
+        }
+    };
+
+    const handleExportDOCX = async () => {
+        try {
+            const blob = await exportDOCX(repoId!);
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${repo?.name || 'documentation'}.docx`;
+            a.click();
+        } catch (error) {
+            alert('Failed to export DOCX');
         }
     };
 
@@ -132,6 +145,13 @@ export default function DocumentationViewer() {
                             <Download className="w-4 h-4" />
                             JSON
                         </button>
+                        <button
+                            onClick={handleExportDOCX}
+                            className="btn-secondary flex items-center gap-2 bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100"
+                        >
+                            <FileText className="w-4 h-4" />
+                            Word
+                        </button>
                     </div>
                 </div>
             </div>
@@ -146,8 +166,8 @@ export default function DocumentationViewer() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id as any)}
                                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${activeTab === tab.id
-                                        ? 'bg-blue-600 text-white shadow-md'
-                                        : 'text-gray-600 hover:bg-gray-100'
+                                    ? 'bg-blue-600 text-white shadow-md'
+                                    : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
                                 <Icon className="w-4 h-4" />

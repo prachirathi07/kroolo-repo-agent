@@ -107,6 +107,13 @@ export const exportJSON = async (repoId: string): Promise<any> => {
     return response.data;
 };
 
+export const exportDOCX = async (repoId: string): Promise<Blob> => {
+    const response = await api.get(`/api/docs/${repoId}/export/docx`, {
+        responseType: 'blob',
+    });
+    return response.data;
+};
+
 export const getMonitoringJobs = async (): Promise<any> => {
     const response = await api.get('/api/monitoring/jobs');
     return response.data;
