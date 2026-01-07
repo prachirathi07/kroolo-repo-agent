@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Request, HTTPException, Depends
-from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.logger import logger
 
@@ -7,7 +6,7 @@ router = APIRouter()
 
 
 @router.post("/github")
-async def github_webhook(request: Request, db: Session = Depends(get_db)):
+async def github_webhook(request: Request, db = Depends(get_db)):
     """
     Handle GitHub webhook events
     
@@ -30,7 +29,7 @@ async def github_webhook(request: Request, db: Session = Depends(get_db)):
 
 
 @router.post("/gitlab")
-async def gitlab_webhook(request: Request, db: Session = Depends(get_db)):
+async def gitlab_webhook(request: Request, db = Depends(get_db)):
     """
     Handle GitLab webhook events
     
@@ -47,3 +46,4 @@ async def gitlab_webhook(request: Request, db: Session = Depends(get_db)):
     except Exception as e:
         logger.error(f"GitLab webhook error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+

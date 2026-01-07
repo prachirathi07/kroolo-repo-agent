@@ -34,7 +34,7 @@ async def startup_event():
         logger.info("Database initialized successfully")
     except Exception as e:
         logger.error(f"Failed to initialize database: {str(e)}")
-        logger.warning("⚠️  App is running but database is not connected. Please check your DATABASE_URL in .env file.")
+        logger.warning("⚠️  App is running but database is not connected. Please check your SUPABASE_URL and SUPABASE_KEY in .env file.")
 
 
 @app.on_event("shutdown")

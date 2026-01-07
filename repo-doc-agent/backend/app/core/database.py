@@ -1,35 +1,32 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from supabase import create_client, Client
 from app.core.config import settings
+from app.core.logger import logger
 
-# Create SQLAlchemy engine
-engine = create_engine(
-    settings.DATABASE_URL,
-    pool_pre_ping=True,
-    pool_size=10,
-    max_overflow=20
-)
+# Initialize Supabase client
+url: str = settings.SUPABASE_URL
+key: str = settings.SUPABASE_KEY
 
-# Create SessionLocal class
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Create Base class for models
-Base = declarative_base()
-
+try:
+    if not url or not key:
+        logger.warning("Supabase credentials not found. Database features will fail.")
+        supabase: Client = None
+    else:
+        supabase: Client = create_client(url, key)
+except Exception as e:
+    logger.error(f"Failed to initialize Supabase client: {str(e)}")
+    supabase = None
 
 def get_db():
     """
-    Dependency function to get database session
-    Usage in FastAPI: db: Session = Depends(get_db)
+    Dependency to get Supabase client.
+    Returns the global supabase client instance.
     """
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
+    return supabase
 
 def init_db():
-    """Initialize database - create all tables"""
-    Base.metadata.create_all(bind=engine)
+    """
+    Placeholder for database initialization.
+    With Supabase, tables are managed via the dashboard of SQL editor.
+    """
+    pass
+
